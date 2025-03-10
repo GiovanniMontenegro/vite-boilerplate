@@ -9,7 +9,6 @@
 		"esbenp.prettier-vscode",
 		"ms-playwright.playwright",
 		"yoavbls.pretty-ts-errors",
-		"bradlc.vscode-tailwindcss",
 		"wayou.vscode-todo-highlight"
 	]
 }
