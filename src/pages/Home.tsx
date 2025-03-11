@@ -8,7 +8,7 @@ export const Home = (): FunctionComponent => {
 
 	const onTranslateButtonClick = async (): Promise<void> => {
 		if (i18n.resolvedLanguage === "en") {
-			await i18n.changeLanguage("es");
+			await i18n.changeLanguage("it");
 		} else {
 			await i18n.changeLanguage("en");
 		}
