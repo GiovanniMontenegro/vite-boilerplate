@@ -1,20 +1,12 @@
-import { createRouter } from "@tanstack/react-router";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { routeTree } from "./routeTree.gen.ts";
 import './common/i18n'
 import { ConfigProvider, theme } from 'antd';
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Home } from "./pages/Home.tsx";
 
-const router = createRouter({ routeTree });
 const rootElement = document.querySelector("#root") as Element;
-
-declare module "@tanstack/react-router" {
-	interface Register {
-		router: typeof router;
-	}
-}
-
 
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
@@ -30,7 +22,12 @@ if (!rootElement.innerHTML) {
 						// algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
 					}}
 				>
-					<App router={router} />
+					<BrowserRouter>
+						<Routes>
+							<Route path="/" element={<App />} />
+							<Route path="/home" element={<Home />} />
+						</Routes>
+					</BrowserRouter>
 				</ConfigProvider>
 			</React.Suspense>
 		</React.StrictMode>

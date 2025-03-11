@@ -1,6 +1,7 @@
+import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 import type { FunctionComponent } from "../common/types";
-import { Button } from "antd";
+
 
 export const Home = (): FunctionComponent => {
 	const { t, i18n } = useTranslation();
