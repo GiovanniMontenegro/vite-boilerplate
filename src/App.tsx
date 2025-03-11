@@ -6,10 +6,12 @@ import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { APP_THEME } from "./common/constants";
 import type { FunctionComponent } from "./common/types";
+import { ConsoleLayout } from "./components/layout/ConsoleLayout";
+import { MainLayout } from "./components/layout/MainLayout";
 import useDeviceDetection, { type DeviceInfo } from "./hooks/useDeviceDetection";
 import { Home } from "./pages/Home";
-import { DARK_THEME, LIGHT_THEME } from "./styles/theme";
 import useAppStore from "./store/app.store";
+import { DARK_THEME, LIGHT_THEME } from "./styles/theme";
 
 const App = (): FunctionComponent => {
 	const { i18n } = useTranslation();
@@ -27,7 +29,12 @@ const App = (): FunctionComponent => {
 		>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<MainLayout />} >
+						<Route index element={<Home />} />
+					</Route>
+					<Route path="/console" element={<ConsoleLayout />} >
+						<Route index element={<Home />} />
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</ConfigProvider>
