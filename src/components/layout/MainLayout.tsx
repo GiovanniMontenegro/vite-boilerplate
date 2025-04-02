@@ -1,14 +1,14 @@
+
 import { Outlet } from "react-router";
 
-function MainLayout(): React.ReactElement {
+
+const MainLayout = (): React.ReactElement => {
   return (
     <div>
-      HomeLayout
+      MainLayout
       <Outlet />
     </div>
   );
-}
+};
 
-export {
-  MainLayout
-}
+export default MainLayout;

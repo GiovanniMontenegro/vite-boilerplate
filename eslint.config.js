@@ -19,6 +19,7 @@ const baseESLintConfig = {
 	name: "eslint",
 	extends: [eslintJS.configs.recommended],
 	rules: {
+		"max-len": "error",
 		"no-await-in-loop": "error",
 		"no-constant-binary-expression": "error",
 		"no-duplicate-imports": "error",
