@@ -1,7 +1,7 @@
 import { type ThemeConfig, theme } from 'antd';
 
 export enum COLOR {
-  PRIMARY = '#66FCF1',
+  PRIMARY = '#9147ff',
   DARK_PRIMARY = '#2b6762',
   WHITE = '#fff',
   DISABLED = '#fff7',

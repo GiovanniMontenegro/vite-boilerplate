@@ -12,6 +12,7 @@ import MainLayout from "./components/layout/MainLayout";
 import PageLayout from "./components/layout/PageLayout";
 import Home from "./pages/Home";
 import { CONSOLE_BASE_PATH, CONSOLE_ROUTES_KEYS } from "./router";
+import SharedStyle from "./common/SharedStyle";
 
 const App = (): React.ReactElement => {
 	const { i18n } = useTranslation();
@@ -44,6 +45,7 @@ const App = (): React.ReactElement => {
 					</Route>
 				</Routes>
 			</BrowserRouter>
+			<SharedStyle />
 		</ConfigProvider>
 	);
 };

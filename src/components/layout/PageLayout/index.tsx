@@ -3,9 +3,8 @@ import type React from 'react';
 import { Layout, theme } from 'antd';
 import PageContent from './contentbar';
 import Headerbar from './headerbar';
+import { Footer } from './pageLayout.styled';
 import PageSidebar from './sidebar';
-
-const { Footer } = Layout;
 
 const PageLayout: React.FC = () => {
   const {
@@ -18,12 +17,14 @@ const PageLayout: React.FC = () => {
       <Layout>
         <Headerbar colorBgContainer={colorBgContainer} />
         <PageContent />
-        <Footer style={{ textAlign: 'center' }}>
-          React Admin Dashboard ©{new Date().getFullYear()} Created by Yujian Xue
+        <Footer>
+          Managram ©{new Date().getFullYear()} Created by Giovanni Montenegro
         </Footer>
       </Layout>
     </Layout>
   );
 };
+
+
 
 export default PageLayout;
