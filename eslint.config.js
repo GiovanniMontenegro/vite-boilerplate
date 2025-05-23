@@ -63,7 +63,7 @@ const typescriptConfig = {
 		"@typescript-eslint/array-type": ["error", { default: "generic" }],
 		"@typescript-eslint/consistent-type-exports": "error",
 		"@typescript-eslint/consistent-type-imports": "error",
-		"@typescript-eslint/explicit-function-return-type": "error",
+		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-member-accessibility": "error",
 		"@typescript-eslint/explicit-module-boundary-types": "error",
 		"@typescript-eslint/no-confusing-void-expression": "error",
@@ -152,27 +152,7 @@ const unicornConfig = {
 		"unicorn/no-console-spaces": "error",
 		"unicorn/no-null": "off",
 		"unicorn/filename-case": "off",
-		"unicorn/prevent-abbreviations": [
-			"error",
-			{
-				replacements: {
-					db: false,
-					arg: false,
-					args: false,
-					env: false,
-					fn: false,
-					func: {
-						fn: true,
-						function: false,
-					},
-					prop: false,
-					props: false,
-					ref: false,
-					refs: false,
-				},
-				ignore: ["semVer", "SemVer"],
-			},
-		],
+		"unicorn/prevent-abbreviations": "off",
 	},
 };
 

@@ -50,6 +50,7 @@
     "react-hook-form": "^7.54.2",
     "react-i18next": "^15.4.1",
     "react-router": "^7.3.0",
+    "recharts": "^2.15.3",
     "styled-components": "^6.1.16",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",

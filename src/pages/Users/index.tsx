@@ -13,8 +13,8 @@ const Users = (): React.ReactElement => {
 	};
 
 	return (
-		<div className="bg-blue-300  font-bold w-screen h-screen flex flex-col justify-center items-center">
-			<p className="text-white text-6xl">{t("home.greeting")}</p>
+		<div >
+			<p>{t("home.greeting")}</p>
 			Users
 			<Button onClick={onTranslateButtonClick}>
 				translate

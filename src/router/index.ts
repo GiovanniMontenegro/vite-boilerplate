@@ -4,7 +4,7 @@ type AppRoute = RouterItem & {
 	protected: boolean;
 };
 
-const CONSOLE_BASE_PATH = "console";
+
 
 enum CONSOLE_ROUTES_KEYS {
 	DASHBOARD = "dashboard",
@@ -29,5 +29,5 @@ for (const route of Object.values(CONSOLE_ROUTES_KEYS)) {
 	});
 }
 
-export { CONSOLE_ROUTES, CONSOLE_BASE_PATH, CONSOLE_ROUTES_KEYS };
+export { CONSOLE_ROUTES, CONSOLE_ROUTES_KEYS };
 export type { AppRoute };
