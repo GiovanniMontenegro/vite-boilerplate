@@ -1,5 +1,36 @@
 {
-    "home": {
-        "greeting": "Hello, world!"
-    }
+  "home": {
+    "greeting": "Hello World!"
+  },
+  "moderators": {
+    "title": "Moderators",
+    "loadError": "Error loading moderators",
+    "create": "Create moderator",
+    "createTitle": "New moderator",
+    "updateSuccess": "Moderator updated successfully",
+    "createSuccess": "Moderator created successfully",
+    "saveError": "Error saving moderator",
+    "deleteSuccess": "Moderator deleted successfully",
+    "deleteError": "Error deleting moderator",
+    "enableSuccess": "Moderator enabled successfully",
+    "disableSuccess": "Moderator disabled successfully",
+    "toggleError": "Error toggling moderator status",
+    "table": {
+      "username": "Telegram username",
+      "broadcaster": "Broadcaster",
+      "enabled": "Enabled",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "confirmDelete": "Are you sure you want to delete this moderator?",
+    "form": {
+      "telegramUsername": "Telegram username",
+      "broadcaster": "Broadcaster",
+      "enabled": "Enabled"
+    },
+    "editTitle": "Edit moderator"
+  }
 }

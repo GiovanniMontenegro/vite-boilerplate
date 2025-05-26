@@ -11,6 +11,7 @@ export interface LoginResponse {
 export interface WebUser {
 	id: string;
 	username: string;
+	broadcasterId: string;
 	email: string;
 	roles: Array<string>;
 }

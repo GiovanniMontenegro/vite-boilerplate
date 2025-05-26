@@ -59,6 +59,8 @@ const typescriptConfig = {
 		import: patchedImportPlugin,
 	},
 	rules: {
+		"@typescript-eslint/no-floating-promises": "off",
+		'@typescript-eslint/unbound-method': 'off',
 		"@typescript-eslint/adjacent-overload-signatures": "error",
 		"@typescript-eslint/array-type": ["error", { default: "generic" }],
 		"@typescript-eslint/consistent-type-exports": "error",

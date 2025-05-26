@@ -18,7 +18,6 @@ const getKeyByPath = (path: string): string => {
 const generateMenuRoutes = (
 	consoleRoute: Map<string, AppRoute>
 ): Array<RouterItem> => {
-	console.log("entrato");
 	const routeMenus: Array<RouterItem> = [];
 	consoleRoute.forEach((route) =>
 		routeMenus.push({

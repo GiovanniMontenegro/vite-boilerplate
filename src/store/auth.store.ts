@@ -19,8 +19,7 @@ export const useAuthStore = create(
 	addMiddlewareStore("auth", (set) => ({
 		loading: false,
 		user: undefined,
-		status: "CHECKING",
-
+		status: "LOGOUT",
 		login: async (data: LoginRequest, navigate: NavigateFunction) => {
 			const { username, password } = data;
 			set({ loading: true });

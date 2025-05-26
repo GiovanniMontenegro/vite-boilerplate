@@ -27,15 +27,20 @@ function genericError(response: Response): never {
 	throw new ResponseError(response);
 }
 
+const AVOID_CONTENT_TYPE = ["DELETE"];
+
 /**
  * Builds headers for authenticated requests.
  */
 function buildAuthHeader(options?: RequestInit): RequestInit {
 	const token = sessionStorage.getItem(JWT_KEY) ?? "";
+
 	return {
 		...options,
 		headers: {
-			"Content-Type": "application/json",
+			...(options?.method && AVOID_CONTENT_TYPE.includes(options.method)
+				? {}
+				: { "Content-Type": "application/json" }),
 			Authorization: token ? `Bearer ${token}` : "",
 			...(options?.headers ?? {}),
 		},

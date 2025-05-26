@@ -1,5 +1,36 @@
 {
-    "home": {
-        "greeting": "Ciao Mondo!"
-    }
+  "home": {
+    "greeting": "Ciao Mondo!"
+  },
+  "moderators": {
+    "title": "Moderators",
+    "loadError": "Errore nel caricamento dei moderatori",
+    "create": "Crea Moderatore",
+    "createTitle": "Nuovo Moderatore",
+    "updateSuccess": "Moderatore aggiornato con successo",
+    "createSuccess": "Moderatore creato con successo",
+    "saveError": "Errore nel salvataggio",
+    "deleteSuccess": "Moderatore eliminato con successo",
+    "deleteError": "Errore durante l'eliminazione",
+    "enableSuccess": "Moderatore abilitato con successo",
+    "disableSuccess": "Moderatore disabilitato con successo",
+    "toggleError": "Errore durante il cambio di stato del moderatore",
+    "table": {
+      "username": "Username Telegram",
+      "broadcaster": "Broadcaster",
+      "enabled": "Abilitato",
+      "actions": "Azioni"
+    },
+    "actions": {
+      "edit": "Modifica",
+      "delete": "Elimina"
+    },
+    "confirmDelete": "Sei sicuro di voler eliminare questo moderatore?",
+    "form": {
+      "telegramUsername": "Username Telegram",
+      "broadcaster": "Broadcaster",
+      "enabled": "Abilitato"
+    },
+    "editTitle": "Modificare"
+  }
 }

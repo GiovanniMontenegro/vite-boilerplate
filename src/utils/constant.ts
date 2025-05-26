@@ -4,6 +4,7 @@ const REFRESH_KEY = "refresh_token";
 const BASE_PATH = {
 	API: import.meta.env.VITE_SERVER_API,
 	AUTH: "auth",
+	TWITCH: "twitch",
 };
 
 enum APP_PATH {
@@ -27,6 +28,34 @@ const API = {
 		GET_NAVBAR: `${BASE_PATH.API}/${BASE_PATH.AUTH}/navbar`,
 		GET_REFRESH: `${BASE_PATH.API}/${BASE_PATH.AUTH}/refresh`,
 		POST_CHANGE_PASSWORD: `${BASE_PATH.API}/${BASE_PATH.AUTH}/changepwd`,
+	},
+	TWITCH_STATS_ENDPOINT: {
+		BASE: "/api/",
+		statsWeekly: (id: string): string =>
+			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/weekly`,
+		statsMonthly: (id: string): string =>
+			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/monthly`,
+		statsDaily: (id: string): string =>
+			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/daily`,
+		statsLast: (id: string): string =>
+			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/last`,
+	},
+	TELEGRAM_MODERATORS: {
+		/**
+		 * Url base per i moderatori Telegram
+		 * GET: lista moderatori
+		 * POST: crea nuovo moderatore
+		 */
+		BASE: `${BASE_PATH.API}/broadcasters/${APP_PATH.MODS}`,
+
+		/**
+		 * URL per operazioni su uno specifico moderatore
+		 * GET: dettagli moderatore
+		 * PATCH: aggiorna moderatore
+		 * DELETE: elimina moderatore
+		 */
+		BY_ID: (username: string): string =>
+			`${BASE_PATH.API}/broadcasters/${APP_PATH.MODS}/${username}`,
 	},
 };
 

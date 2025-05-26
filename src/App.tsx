@@ -16,13 +16,13 @@ import { LoginPage } from "./pages/Login";
 import { CONSOLE_ROUTES_KEYS } from "./router";
 import { type AuthState, useAuthStore } from "./store/auth.store";
 import { APP_PATH } from "./utils/constant";
+import Mods from "./pages/Mods";
 
 
 // Componente per gestire le rotte protette
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 	const authState = useAuthStore(state => state) as AuthState;
 	const { status } = authState;
-
 	if (status === 'CHECKING') {
 		return (
 			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -41,11 +41,7 @@ const App = (): React.ReactElement => {
 	const { i18n } = useTranslation();
 	//Check if it's dark mode
 	const { theme } = useAppStore()
-	console.log("🚀 ~ App ~ theme:", theme)
 	const isDarkMode = theme === APP_THEME.DARK;
-	//Get user device
-	const userDevice: DeviceInfo = useDeviceDetection();
-	console.log("🚀 ~ App ~ userDevice:", userDevice)
 	return (
 		<ConfigProvider
 			theme={isDarkMode ? DARK_THEME : LIGHT_THEME}
@@ -62,14 +58,13 @@ const App = (): React.ReactElement => {
 					<Route path={APP_PATH.BASE_PATH}>
 						{/* Login under console path */}
 						<Route path={APP_PATH.LOGIN} element={<LoginPage />} />
-
 						{/* Protected console pages */}
 						<Route element={<PrivateRoute><PageLayout /></PrivateRoute>}>
 							<Route index element={<Home />} />
 							<Route path={CONSOLE_ROUTES_KEYS.DASHBOARD} element={<Home />} />
 							<Route path={CONSOLE_ROUTES_KEYS.CHANNELS} element={<Home />} />
 							<Route path={CONSOLE_ROUTES_KEYS.USERS} element={<Home />} />
-							<Route path={CONSOLE_ROUTES_KEYS.MODS} element={<Home />} />
+							<Route path={CONSOLE_ROUTES_KEYS.MODS} element={<Mods />} />
 							<Route path={CONSOLE_ROUTES_KEYS.SCHEDULE} element={<Home />} />
 							<Route path={CONSOLE_ROUTES_KEYS.SUPPORT} element={<Home />} />
 							<Route path={CONSOLE_ROUTES_KEYS.ADMIN} element={<Home />} />
