@@ -11,15 +11,19 @@ export interface AuthState {
 	user?: WebUser;
 	status: "LOGIN" | "CHECKING" | "LOGOUT";
 	login: (data: LoginRequest, navigate: NavigateFunction) => Promise<void>;
+	getProfile: (
+		data: LoginResponse,
+		navigate: NavigateFunction
+	) => Promise<void>;
 	logout: () => void;
 	resetStore: () => void;
 }
 
 export const useAuthStore = create(
-	addMiddlewareStore("auth", (set) => ({
+	addMiddlewareStore("auth", (set, get) => ({
 		loading: false,
 		user: undefined,
-		status: "LOGOUT",
+		status: "CHECKING",
 		login: async (data: LoginRequest, navigate: NavigateFunction) => {
 			const { username, password } = data;
 			set({ loading: true });
@@ -32,19 +36,10 @@ export const useAuthStore = create(
 						body: JSON.stringify({ username, password }),
 					}
 				);
-				sessionStorage.setItem(JWT_KEY, response.accessToken);
-				sessionStorage.setItem(REFRESH_KEY, response.refreshToken);
-
-				const profile: WebUser | null = await authRequest<WebUser>(
-					API.AUTH.GET_PROFILE
-				);
-				if (!profile) {
-					throw new Error("Profilo utente non trovato");
-				}
-				set({ user: profile, status: "LOGIN", loading: false });
-
-				// Evita promesse pendenti
-				void navigate(`/${APP_PATH.BASE_PATH}/${APP_PATH.DASHBOARD}`);
+				// Recuperi getProfile dallo store
+				const { getProfile } = get() as AuthState;
+				// Chiami getProfile passando la response e, ad esempio, navigate
+				await getProfile(response, navigate);
 			} catch (err: unknown) {
 				set({ loading: false });
 				if (err instanceof Error) {
@@ -53,7 +48,29 @@ export const useAuthStore = create(
 				throw new Error("Errore durante il login");
 			}
 		},
+		getProfile: async (
+			data: LoginResponse,
+			navigate: NavigateFunction
+		): Promise<void> => {
+			const { loading } = get() as AuthState;
+			if (!loading) {
+				set({ loading: true });
+			}
+			sessionStorage.setItem(JWT_KEY, data.accessToken);
+			if (data.refreshToken) {
+				sessionStorage.setItem(REFRESH_KEY, data.refreshToken);
+			}
+			const profile: WebUser | null = await authRequest<WebUser>(
+				API.AUTH.GET_PROFILE
+			);
+			if (!profile) {
+				throw new Error("Profilo utente non trovato");
+			}
+			set({ user: profile, status: "LOGIN", loading: false });
 
+			// Evita promesse pendenti
+			void navigate(`/${APP_PATH.BASE_PATH}/${APP_PATH.DASHBOARD}`);
+		},
 		logout: (): void => {
 			sessionStorage.removeItem(JWT_KEY);
 			sessionStorage.removeItem(REFRESH_KEY);
