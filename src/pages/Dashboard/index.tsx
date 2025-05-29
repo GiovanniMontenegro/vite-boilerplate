@@ -1,22 +1,21 @@
 // src/pages/Dashboard/index.tsx
 
-import { useEffect } from 'react';
-import { Card, Row, Col } from 'antd';
-import { useStatisticsStore } from '@/store/statistics.store';
-import useAppStore from '@/store/app.store';
 import useDeviceDetection, { DEVICE } from '@/hooks/useDeviceDetection';
+
+import { Card, Col, Row } from 'antd';
+import { useEffect } from 'react';
 import {
-	LineChart,
+	CartesianGrid,
 	Line,
+	LineChart,
+	ResponsiveContainer,
+	Tooltip,
 	XAxis,
 	YAxis,
-	Tooltip,
-	CartesianGrid,
-	ResponsiveContainer,
 } from 'recharts';
+import { useStatisticsStore } from './store/dashboard.store';
 
 const Dashboard: React.FC = () => {
-	const broadcasterId = useAppStore((state) => state.broadcasterId);
 	const {
 		weekly,
 		monthly,
@@ -34,13 +33,13 @@ const Dashboard: React.FC = () => {
 	const isMobile = deviceInfo.deviceType === DEVICE.MOBILE;
 
 	useEffect(() => {
-		if (broadcasterId) {
-			fetchWeekly(broadcasterId);
-			fetchMonthly(broadcasterId);
-			fetchDaily(broadcasterId);
-			fetchLastDay(broadcasterId);
-		}
-	}, [broadcasterId]);
+
+			fetchWeekly();
+			fetchMonthly();
+			fetchDaily();
+			fetchLastDay();
+		
+	}, []);
 
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error}</div>;

@@ -18,6 +18,11 @@ import { CONSOLE_ROUTES_KEYS } from "./router";
 import { type AuthState, useAuthStore } from "./store/auth.store";
 import { ADMIN, APP_PATH, JWT_KEY } from "./utils/constant";
 import Administration from "./pages/Administration";
+import Subscriptions from "./pages/Subscriptions";
+import Channels from "./pages/Channels";
+import Dashboard from "./pages/Dashboard";
+import Schedule from "./pages/Schedule";
+import Support from "./pages/Support";
 
 
 // Componente per gestire le rotte protette
@@ -80,12 +85,12 @@ const App = (): React.ReactElement => {
 						{/* Protected console pages */}
 						<Route element={<PrivateRoute><PageLayout /></PrivateRoute>}>
 							<Route index element={<Home />} />
-							<Route path={CONSOLE_ROUTES_KEYS.DASHBOARD} element={<Home />} />
-							<Route path={CONSOLE_ROUTES_KEYS.CHANNELS} element={<Home />} />
-							<Route path={CONSOLE_ROUTES_KEYS.USERS} element={<Home />} />
+							<Route path={CONSOLE_ROUTES_KEYS.DASHBOARD} element={<Dashboard />} />
+							<Route path={CONSOLE_ROUTES_KEYS.CHANNELS} element={<Channels />} />
+							<Route path={CONSOLE_ROUTES_KEYS.SUBSCRIPTIONS} element={<Subscriptions />} />
 							<Route path={CONSOLE_ROUTES_KEYS.MODS} element={<Mods />} />
-							<Route path={CONSOLE_ROUTES_KEYS.SCHEDULE} element={<Home />} />
-							<Route path={CONSOLE_ROUTES_KEYS.SUPPORT} element={<Home />} />
+							<Route path={CONSOLE_ROUTES_KEYS.SCHEDULE} element={<Schedule />} />
+							<Route path={CONSOLE_ROUTES_KEYS.SUPPORT} element={<Support />} />
 							{user?.role === ADMIN && <Route path={CONSOLE_ROUTES_KEYS.ADMIN} element={<Administration />} />}
 						</Route>
 

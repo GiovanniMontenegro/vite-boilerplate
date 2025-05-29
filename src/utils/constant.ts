@@ -6,6 +6,7 @@ const BASE_PATH = {
 	AUTH: "auth",
 	TWITCH: "twitch",
 	CREATOR: "creator",
+	STATISTICS: "statistics",
 };
 
 enum APP_PATH {
@@ -30,16 +31,12 @@ const API = {
 		GET_REFRESH: `${BASE_PATH.API}/${BASE_PATH.AUTH}/refresh`,
 		POST_CHANGE_PASSWORD: `${BASE_PATH.API}/${BASE_PATH.AUTH}/changepwd`,
 	},
-	TWITCH_STATS_ENDPOINT: {
+	STATS_ENDPOINT: {
 		BASE: "/api/",
-		statsWeekly: (id: string): string =>
-			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/weekly`,
-		statsMonthly: (id: string): string =>
-			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/monthly`,
-		statsDaily: (id: string): string =>
-			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/daily`,
-		statsLast: (id: string): string =>
-			`${BASE_PATH.API}/${BASE_PATH.TWITCH}/${id}/stats/last`,
+		statsWeekly: `${BASE_PATH.API}/${BASE_PATH.STATISTICS}/weekly`,
+		statsMonthly: `${BASE_PATH.API}/${BASE_PATH.STATISTICS}/monthly`,
+		statsDaily: `${BASE_PATH.API}/${BASE_PATH.STATISTICS}/daily`,
+		statsLast: `${BASE_PATH.API}/${BASE_PATH.STATISTICS}`,
 	},
 	TELEGRAM_MODERATORS: {
 		/**

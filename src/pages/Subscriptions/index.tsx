@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 
 
-const Users = (): React.ReactElement => {
+const Subscriptions = (): React.ReactElement => {
 	const { t, i18n } = useTranslation();
 	const onTranslateButtonClick = async (): Promise<void> => {
 		if (i18n.resolvedLanguage === "en") {
@@ -23,4 +23,4 @@ const Users = (): React.ReactElement => {
 	);
 };
 
-export default Users
+export default Subscriptions

@@ -7,7 +7,7 @@ type AppRoute = RouterItem & {
 enum CONSOLE_ROUTES_KEYS {
 	DASHBOARD = "dashboard",
 	CHANNELS = "channels",
-	USERS = "users",
+	SUBSCRIPTIONS = "subscriptions",
 	MODS = "moderators",
 	SCHEDULE = "schedule",
 	SUPPORT = "support",
