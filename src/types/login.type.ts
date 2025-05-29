@@ -13,5 +13,5 @@ export interface WebUser {
 	username: string;
 	broadcasterId: string;
 	email: string;
-	roles: Array<string>;
+	role: string;
 }

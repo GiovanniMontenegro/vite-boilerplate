@@ -1,13 +1,27 @@
 import type { RouterItem } from "@/types/route.type";
-import { type AppRoute, CONSOLE_ROUTES } from ".";
+import { type AppRoute, CONSOLE_ROUTES, ONLY_ADMIN_ROUTES } from ".";
+import { ADMIN } from "@/utils/constant";
 
-const getRoutePath = (key: string): string => {
-	return CONSOLE_ROUTES.get(key)?.path ?? "";
+const getAppRoutes = (role: string): Map<string, AppRoute> => {
+	if (role === ADMIN) {
+		return CONSOLE_ROUTES;
+	}
+	const filteredMap: Map<string, AppRoute> = new Map();
+	CONSOLE_ROUTES.forEach((value, key) => {
+		if (!ONLY_ADMIN_ROUTES.includes(key)) {
+			filteredMap.set(key, value);
+		}
+	});
+	return filteredMap;
 };
 
-const getKeyByPath = (path: string): string => {
+const getRoutePath = (key: string, role: string): string => {
+	return getAppRoutes(role).get(key)?.path ?? "";
+};
+
+const getKeyByPath = (path: string, role: string): string => {
 	let keyValue;
-	CONSOLE_ROUTES.forEach((value) => {
+	getAppRoutes(role).forEach((value) => {
 		if (value.path === path) {
 			keyValue = value.meta?.key ?? "";
 		}
@@ -28,4 +42,4 @@ const generateMenuRoutes = (
 	return routeMenus;
 };
 
-export { getRoutePath, getKeyByPath, generateMenuRoutes };
+export { getRoutePath, getKeyByPath, generateMenuRoutes, getAppRoutes };

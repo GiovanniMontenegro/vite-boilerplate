@@ -32,5 +32,29 @@
       "enabled": "Abilitato"
     },
     "editTitle": "Modificare"
-  }
+  },
+  "creators": {
+    "updated": "Creatore aggiornato con successo.",
+    "created": "Creatore creato con successo.",
+    "error": "Si è verificato un errore.",
+    "deleted": "Creatore eliminato con successo.",
+    "statusToggled": "Stato del creatore aggiornato con successo.",
+    "channelName": "Nome del canale",
+    "name": "Nome",
+    "email": "Email",
+    "provider": "Provider",
+    "cron": "Espressione Cron",
+    "gracePeriod": "Periodo di tolleranza (giorni)",
+    "enabled": "Attivo",
+    "confirmDelete": "Sei sicuro di voler eliminare questo creatore?",
+    "add": "Aggiungi Creatore",
+    "editTitle": "Modifica Creatore",
+    "addTitle": "Nuovo Creatore",
+    "telegramId": "ID Telegram",
+    "accessToken": "Token di accesso",
+    "refreshToken": "Token di rinnovo"
+  },
+  "actions": "Azioni",
+  "edit": "Modifica",
+  "delete": "Elimina"
 }

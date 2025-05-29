@@ -32,5 +32,29 @@
       "enabled": "Enabled"
     },
     "editTitle": "Edit moderator"
-  }
+  },
+  "creators": {
+    "updated": "Creator updated successfully.",
+    "created": "Creator created successfully.",
+    "error": "An error occurred.",
+    "deleted": "Creator deleted successfully.",
+    "statusToggled": "Creator status updated successfully.",
+    "channelName": "Channel Name",
+    "name": "Name",
+    "email": "Email",
+    "provider": "Provider",
+    "cron": "Cron expression",
+    "gracePeriod": "Grace period (days)",
+    "enabled": "Enabled",
+    "confirmDelete": "Are you sure you want to delete this creator?",
+    "add": "Add Creator",
+    "editTitle": "Edit Creator",
+    "addTitle": "New Creator",
+    "telegramId": "Telegram ID",
+    "accessToken": "Access Token",
+    "refreshToken": "Refresh Token"
+  },
+  "actions": "Actions",
+  "edit": "Edit",
+  "delete": "Delete"
 }

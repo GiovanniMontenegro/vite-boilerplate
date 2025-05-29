@@ -58,6 +58,25 @@ const API = {
 		BY_ID: (username: string): string =>
 			`${BASE_PATH.API}/${BASE_PATH.CREATOR}/${APP_PATH.MODS}/${username}`,
 	},
+	CREATOR: {
+		/**
+		 * Url base per i moderatori Telegram
+		 * GET: lista moderatori
+		 * POST: crea nuovo moderatore
+		 */
+		BASE: `${BASE_PATH.API}/${BASE_PATH.CREATOR}`,
+
+		/**
+		 * URL per operazioni su uno specifico moderatore
+		 * GET: dettagli moderatore
+		 * PATCH: aggiorna moderatore
+		 * DELETE: elimina moderatore
+		 */
+		BY_ID: (id: string): string =>
+			`${BASE_PATH.API}/${BASE_PATH.CREATOR}/${id}`,
+	},
 };
 
-export { API, APP_PATH, JWT_KEY, REFRESH_KEY };
+const ADMIN = "ADMIN";
+
+export { API, APP_PATH, JWT_KEY, REFRESH_KEY, ADMIN };

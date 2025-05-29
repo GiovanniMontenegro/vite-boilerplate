@@ -1,24 +1,35 @@
-import { Button } from "antd";
-import { useTranslation } from "react-i18next";
+import { Tabs, type TabsProps } from "antd";
+import { useState } from "react";
+import Creators from "./pages/creator";
 
 
 const Administration = (): React.ReactElement => {
-	const { t, i18n } = useTranslation();
-	const onTranslateButtonClick = async (): Promise<void> => {
-		if (i18n.resolvedLanguage === "en") {
-			await i18n.changeLanguage("it");
-		} else {
-			await i18n.changeLanguage("en");
-		}
+	const [activeKey, setActiveKey] = useState('1')
+
+	const onChange = (key: string) => {
+		setActiveKey(key)
 	};
 
+	const items: TabsProps['items'] = [
+		{
+			key: '1',
+			label: 'Creators',
+			children: <Creators />,
+		},
+		{
+			key: '2',
+			label: 'Tab 2',
+			children: 'Content of Tab Pane 2',
+		},
+		{
+			key: '3',
+			label: 'Tab 3',
+			children: 'Content of Tab Pane 3',
+		},
+	];
 	return (
 		<div>
-			<p>{t("home.greeting")}</p>
-			Administration
-			<Button onClick={onTranslateButtonClick}>
-				translate
-			</Button>
+			<Tabs defaultActiveKey="1" activeKey={activeKey} items={items} onChange={onChange} />
 		</div>
 	);
 };

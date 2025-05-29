@@ -16,7 +16,8 @@ import { LoginPage } from "./pages/Login";
 import Mods from "./pages/Mods";
 import { CONSOLE_ROUTES_KEYS } from "./router";
 import { type AuthState, useAuthStore } from "./store/auth.store";
-import { APP_PATH, JWT_KEY } from "./utils/constant";
+import { ADMIN, APP_PATH, JWT_KEY } from "./utils/constant";
+import Administration from "./pages/Administration";
 
 
 // Componente per gestire le rotte protette
@@ -58,6 +59,7 @@ const App = (): React.ReactElement => {
 	const { i18n } = useTranslation();
 	//Check if it's dark mode
 	const { theme } = useAppStore()
+	const { user } = useAuthStore() as AuthState
 	const isDarkMode = theme === APP_THEME.DARK;
 	return (
 		<ConfigProvider
@@ -84,9 +86,15 @@ const App = (): React.ReactElement => {
 							<Route path={CONSOLE_ROUTES_KEYS.MODS} element={<Mods />} />
 							<Route path={CONSOLE_ROUTES_KEYS.SCHEDULE} element={<Home />} />
 							<Route path={CONSOLE_ROUTES_KEYS.SUPPORT} element={<Home />} />
-							<Route path={CONSOLE_ROUTES_KEYS.ADMIN} element={<Home />} />
+							{user?.role === ADMIN && <Route path={CONSOLE_ROUTES_KEYS.ADMIN} element={<Administration />} />}
 						</Route>
+
 					</Route>
+					{/* Fallback: se nessuna route viene matchata */}
+					<Route
+						path="*"
+						element={<Navigate to={`/`} replace />}
+					/>
 				</Routes>
 			</BrowserRouter>
 			<SharedStyle />

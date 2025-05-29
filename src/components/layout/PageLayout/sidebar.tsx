@@ -1,11 +1,10 @@
 import { Layout, Menu } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-
-import { generateMenuRoutes, getKeyByPath, getRoutePath } from "@/router/route.utilities";
+import { generateMenuRoutes, getAppRoutes, getKeyByPath, getRoutePath } from "@/router/route.utilities";
+import { type AuthState, useAuthStore } from "@/store/auth.store";
 import type { RouterItem } from "@/types/route.type";
 import type { ItemType, MenuItemType } from "antd/es/menu/interface";
-import { CONSOLE_ROUTES } from "@/router";
 
 const { Sider } = Layout;
 
@@ -46,7 +45,10 @@ const getMenuItems = (
  */
 const PageSidebar = (props: { autoCollapse?: boolean }): React.ReactElement => {
     const { autoCollapse = true } = props;
-    const routes: Array<RouterItem> = useMemo(() => generateMenuRoutes(CONSOLE_ROUTES), [])
+    const { user } = useAuthStore() as AuthState
+    const role = user?.role ?? "";
+    console.log("🚀 ~ user:", user)
+    const routes: Array<RouterItem> = useMemo(() => generateMenuRoutes(getAppRoutes(role)), [])
     const menuItems = useMemo(() => getMenuItems(routes), [routes])
     const navigate = useNavigate();
     const [selectedKeys, setSelectedKeys] = useState<Array<string>>([]);
@@ -54,9 +56,9 @@ const PageSidebar = (props: { autoCollapse?: boolean }): React.ReactElement => {
     const location = useLocation();
 
     useEffect(() => {
-        setSelectedKeys([getKeyByPath(location.pathname)]);
+        setSelectedKeys([getKeyByPath(location.pathname, role)]);
         void navigate(location.pathname);
-    }, [location.pathname, navigate]);
+    }, [location.pathname, navigate, role]);
 
     const onSwitchMenu = ({
         key,
@@ -69,7 +71,7 @@ const PageSidebar = (props: { autoCollapse?: boolean }): React.ReactElement => {
         if (autoCollapse && keyPath.slice(1)) {
             setLastOpenedMenu(keyPath.slice(1));
         }
-        void navigate(getRoutePath(key));
+        void navigate(getRoutePath(key, role));
     };
 
     const onOpenChange = (openKeys: Array<string>): void => {
