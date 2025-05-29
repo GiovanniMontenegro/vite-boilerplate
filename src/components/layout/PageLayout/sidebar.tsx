@@ -1,92 +1,94 @@
-import { Layout, Menu } from "antd";
-import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
 import { generateMenuRoutes, getAppRoutes, getKeyByPath, getRoutePath } from "@/router/route.utilities";
 import { type AuthState, useAuthStore } from "@/store/auth.store";
 import type { RouterItem } from "@/types/route.type";
-import type { ItemType, MenuItemType } from "antd/es/menu/interface";
+import { Layout, Menu, type MenuProps } from "antd";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router";
 
 const { Sider } = Layout;
 
-//Define the routes
-
-const getMenuItems = (
-    routes: Array<RouterItem>
-): Array<ItemType<MenuItemType>> => {
-    return routes
-        .map((itm) => {
-            //If no meta defined return null
-            if (!itm.meta) {
-                return null;
-            }
-            //if has children
-            let children = null;
-            if (itm.children) {
-                children = getMenuItems(itm.children);
-            }
-
-            return children
-                ? {
-                    ...itm.meta,
-                    children,
-                }
-                : {
-                    ...itm.meta,
-                    path: itm.path,
-                };
-        })
-        .filter((itm) => !!itm);
-};
+type AntdMenuItem = Required<MenuProps>["items"][number];
 
 /**
- * PageSidebar
- * @param props {autoCollapse?: boolean} automatic collapes menu when click another menu
- * @returns
+ * Trasforma i tuoi RouterItem in MenuProps['items'], 
+ * garantendo che `key`, `label`, e `children` siano sempre presenti.
  */
+const buildMenuItems = (
+    routes: Array<RouterItem>,
+    t: (key: string) => string
+): Array<AntdMenuItem> =>
+    routes
+        .map((route) => {
+            if (!route.meta) return null;
+
+            const { key, icon, title } = route.meta;
+            const label = t(title ?? "");
+            const children = route.children
+                ? buildMenuItems(route.children, t)
+                : undefined;
+
+            return {
+                key,
+                icon,
+                label,
+                children,
+            } as AntdMenuItem;
+        })
+        .filter((i): i is AntdMenuItem => i !== null);
+
 const PageSidebar = (props: { autoCollapse?: boolean }): React.ReactElement => {
+    const { t } = useTranslation();
     const { autoCollapse = true } = props;
-    const { user } = useAuthStore() as AuthState
+    const { user } = useAuthStore() as AuthState;
     const role = user?.role ?? "";
-    console.log("🚀 ~ user:", user)
-    const routes: Array<RouterItem> = useMemo(() => generateMenuRoutes(getAppRoutes(role)), [])
-    const menuItems = useMemo(() => getMenuItems(routes), [routes])
+
+    // ricostruisco le rotte ogni volta che cambia il ruolo
+    const routes = useMemo<Array<RouterItem>>(
+        () => generateMenuRoutes(getAppRoutes(role)),
+        [role]
+    );
+
+    // menuItems dipende da `routes` e da `t`
+    const menuItems = useMemo<Array<AntdMenuItem>>(
+        () => buildMenuItems(routes, t),
+        [routes, t]
+    );
+
     const navigate = useNavigate();
-    const [selectedKeys, setSelectedKeys] = useState<Array<string>>([]);
-    const [lastOpenedMenu, setLastOpenedMenu] = useState<Array<string>>([]);
     const location = useLocation();
 
+    const [selectedKeys, setSelectedKeys] = useState<Array<string>>([]);
+    const [openKeys, setOpenKeys] = useState<Array<string>>([]);
+
+    // aggiorno la selezione ogni volta che cambia il path o il ruolo
     useEffect(() => {
         setSelectedKeys([getKeyByPath(location.pathname, role)]);
+        // navigo comunque al path corrente
         void navigate(location.pathname);
     }, [location.pathname, navigate, role]);
 
-    const onSwitchMenu = ({
-        key,
-        keyPath,
-    }: {
-        key: string;
-        keyPath: Array<string>;
-        item: React.ReactInstance;
-    }): void => {
-        if (autoCollapse && keyPath.slice(1)) {
-            setLastOpenedMenu(keyPath.slice(1));
+    const onMenuClick: MenuProps["onClick"] = ({ key, keyPath }) => {
+        if (autoCollapse) {
+            // apro solo il genitore se autoCollapse è attivo
+            setOpenKeys(keyPath.slice(1));
         }
         void navigate(getRoutePath(key, role));
     };
 
-    const onOpenChange = (openKeys: Array<string>): void => {
-        setLastOpenedMenu(openKeys);
+    const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
+        setOpenKeys(keys);
     };
 
     return (
         <Sider theme="light">
             <Menu
-                openKeys={lastOpenedMenu}
-                onOpenChange={onOpenChange}
-                selectedKeys={selectedKeys}
                 mode="inline"
                 items={menuItems}
-                onClick={onSwitchMenu}
+                selectedKeys={selectedKeys}
+                openKeys={openKeys}
+                onClick={onMenuClick}
+                onOpenChange={onOpenChange}
             />
         </Sider>
     );

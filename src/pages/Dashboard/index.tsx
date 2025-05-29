@@ -2,7 +2,7 @@
 
 import useDeviceDetection, { DEVICE } from '@/hooks/useDeviceDetection';
 
-import { Card, Col, Row } from 'antd';
+import { Card, Col, message, Row } from 'antd';
 import { useEffect } from 'react';
 import {
 	CartesianGrid,
@@ -31,21 +31,27 @@ const Dashboard: React.FC = () => {
 
 	const deviceInfo = useDeviceDetection();
 	const isMobile = deviceInfo.deviceType === DEVICE.MOBILE;
-
+	// nuovo message hook
+	const [messageApi, contextHolder] = message.useMessage();
 	useEffect(() => {
 
-			fetchWeekly();
-			fetchMonthly();
-			fetchDaily();
-			fetchLastDay();
-		
+		fetchWeekly();
+		fetchMonthly();
+		fetchDaily();
+		fetchLastDay();
+
 	}, []);
 
-	if (loading) return <div>Loading...</div>;
-	if (error) return <div>Error: {error}</div>;
+	useEffect(() => {
+		if (error) {
+			void messageApi.error(error);
+		}
+	}, [error, messageApi]);
 
+	if (loading) return <div>Loading...</div>;
 	return (
 		<div style={{ padding: 24 }}>
+			{contextHolder}
 			<Row gutter={[24, 24]}>
 				<Col span={24}>
 					<Card title="Subs giornaliere">

@@ -21,9 +21,9 @@ const CONSOLE_ROUTES: Map<string, AppRoute> = new Map();
 for (const route of Object.values(CONSOLE_ROUTES_KEYS)) {
 	CONSOLE_ROUTES.set(route, {
 		meta: {
-			title: `${route}.title`,
+			title: `menu.${route}`,
 			key: route,
-			label: `${route}.label`,
+			label: `menu.${route}`,
 		},
 		path: `${route}`,
 		protected: true,

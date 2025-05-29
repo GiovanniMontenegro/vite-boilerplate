@@ -56,5 +56,14 @@
   },
   "actions": "Actions",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "menu": {
+    "dashboard": "Dashboard",
+    "channels": "Channels",
+    "subscriptions": "Subscriptions",
+    "moderators": "Moderators",
+    "schedule": "Schedule",
+    "support": "Support",
+    "administration": "Administration"
+  }
 }

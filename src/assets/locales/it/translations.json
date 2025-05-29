@@ -56,5 +56,14 @@
   },
   "actions": "Azioni",
   "edit": "Modifica",
-  "delete": "Elimina"
+  "delete": "Elimina",
+   "menu": {
+    "dashboard": "Dashboard",
+    "channels": "Canali",
+    "subscriptions": "Abbonamenti",
+    "moderators": "Moderatori",
+    "schedule": "Programmazione",
+    "support": "Supporto",
+    "administration": "Amministrazione"
+  }
 }
