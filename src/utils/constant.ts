@@ -5,6 +5,7 @@ const BASE_PATH = {
 	API: import.meta.env.VITE_SERVER_API,
 	AUTH: "auth",
 	TWITCH: "twitch",
+	CREATOR: "creator",
 };
 
 enum APP_PATH {
@@ -46,7 +47,7 @@ const API = {
 		 * GET: lista moderatori
 		 * POST: crea nuovo moderatore
 		 */
-		BASE: `${BASE_PATH.API}/broadcasters/${APP_PATH.MODS}`,
+		BASE: `${BASE_PATH.API}/${BASE_PATH.CREATOR}/${APP_PATH.MODS}`,
 
 		/**
 		 * URL per operazioni su uno specifico moderatore
@@ -55,7 +56,7 @@ const API = {
 		 * DELETE: elimina moderatore
 		 */
 		BY_ID: (username: string): string =>
-			`${BASE_PATH.API}/broadcasters/${APP_PATH.MODS}/${username}`,
+			`${BASE_PATH.API}/${BASE_PATH.CREATOR}/${APP_PATH.MODS}/${username}`,
 	},
 };
 

@@ -9,7 +9,7 @@ import { API } from "@/utils/constant";
 import { authRequest } from "@/utils/request";
 import { create } from "zustand";
 
-export type CreateModeratorRequest = Omit<ModeratorDto, "id">;
+export type CreateModeratorRequest = Omit<ModeratorDto, "id" | "broadcaster">;
 export type UpdateModeratorRequest = Partial<CreateModeratorRequest>;
 
 export interface ModeratorsState {
@@ -38,9 +38,8 @@ const useModeratorsStore = create<ModeratorsState>((set) => ({
 			const models = dtos.data.map((dto) => new Moderator(dto));
 			set({ moderators: models });
 		} catch (err: unknown) {
-			set({
-				error: err instanceof Error ? err.message : "Failed to load moderators",
-			});
+			console.error(err);
+			throw err;
 		} finally {
 			set({ loading: false });
 		}
@@ -53,16 +52,14 @@ const useModeratorsStore = create<ModeratorsState>((set) => ({
 				API.TELEGRAM_MODERATORS.BASE,
 				{
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(payload),
 				}
 			);
 			if (!dto) throw new Error("No data returned");
-			await useModeratorsStore.getState().getModerators()
+			await useModeratorsStore.getState().getModerators();
 		} catch (err: unknown) {
-			set({
-				error: err instanceof Error ? err.message : "Failed to add moderator",
-			});
+			console.error(err);
+			throw err;
 		} finally {
 			set({ loading: false });
 		}
@@ -84,10 +81,8 @@ const useModeratorsStore = create<ModeratorsState>((set) => ({
 				),
 			}));
 		} catch (err: unknown) {
-			set({
-				error:
-					err instanceof Error ? err.message : "Failed to update moderator",
-			});
+			console.error(err);
+			throw err;
 		} finally {
 			set({ loading: false });
 		}
@@ -102,10 +97,8 @@ const useModeratorsStore = create<ModeratorsState>((set) => ({
 				moderators: state.moderators.filter((m) => m.id !== id),
 			}));
 		} catch (err: unknown) {
-			set({
-				error:
-					err instanceof Error ? err.message : "Failed to delete moderator",
-			});
+			console.error(err);
+			throw err;
 		} finally {
 			set({ loading: false });
 		}

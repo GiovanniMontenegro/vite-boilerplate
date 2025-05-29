@@ -30,6 +30,7 @@ const Mods: React.FC = () => {
 		updateModerator,
 		deleteModerator,
 	} = useModeratorsStore();
+	console.log("🚀 ~ error:", error)
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [editing, setEditing] = useState<Moderator | null>(null);
 	const [form] = Form.useForm<Partial<CreateModeratorRequest>>();
@@ -51,7 +52,10 @@ const Mods: React.FC = () => {
 
 	const openCreate = (): void => {
 		setEditing(null);
-		form.resetFields();
+		form.setFieldsValue({
+			telegramUsername: "",
+			enabled: false,
+		});
 		setIsModalVisible(true);
 	};
 
@@ -59,7 +63,6 @@ const Mods: React.FC = () => {
 		setEditing(mod);
 		form.setFieldsValue({
 			telegramUsername: mod.telegramUsername,
-			broadcaster: mod.broadcaster,
 			enabled: mod.enabled,
 		});
 		setIsModalVisible(true);
